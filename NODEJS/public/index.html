@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Vicc portál</title>
+	<link rel="stylesheet" href="lib/normalize.css">
+	<link rel="stylesheet" href="lib/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/cookie.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	
+
+</head>
+
+<body>
+</body>
+<!--Könyvtárak-->
+<script src="lib/jquery.js"></script>
+<script src="lib/bootstrap.js"></script>
+<!--Adatok-->
+<script src="script/store/user.js"></script>
+<!--Függvények-->
+<script src="script/function/layout.js"></script>
+<script src="script/function/menu.js"></script>
+<script src="lib/cookie.js"></script>
+<script>
+	$(() => {
+		initLayout();
+		checkSession().then((isUserLoggedIn) => {
+			loadMenu().then(() => {
+				setMenuState(isUserLoggedIn ? 'user' : 'guest');
+			});
+			if (isUserLoggedIn) {
+				loadPage('userhome.html');
+			} else {
+				loadPage('login.html');
+			}
+		});
+		cookieConsent();
+	});
+</script>
+
+</html>

@@ -1,0 +1,36 @@
+<div class="home-container">
+    <div class="row justify-content-center">
+        <h2>Hamarosan kijelentkezik a vicc portálból!</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="progress" style="width: 15%;margin: 15px auto">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" id="alertArea"></div>
+</div>
+<script>
+    doLogout().then(() => {
+        var i = 100;
+
+        var counterBack = setInterval(function(){
+            i--;
+            if (i >= 0){
+                $('.progress-bar').css('width', i+'%');
+            } else {
+                clearInterval(counterBack);
+                loadPage('home.html');
+            }
+
+        }, 1000/80);
+    }).catch(errorMsg => {
+        $('#alertArea').prepend(`<div class="alert alert-danger col-10 mx-auto" role="alert">
+                ${errorMsg ?? 'Hiba történt a feldolgozás során!'}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Bezár">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`);
+    })
+
+</script>

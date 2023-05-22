@@ -1,0 +1,52 @@
+<form id="loginForm">
+    <div id="loginPage" class="container-fluid mt-5 py-4">
+        <div class="row justify-content-center"><svg width="38" height="39" viewBox="0 0 38 39" fill="none"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="38" height="39" fill="url(#pattern0)" />
+                <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0" transform="translate(-0.00612833) scale(0.0140591 0.0136986)" />
+                    </pattern>
+                    <image id="image0" width="72" height="73"
+                        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABJCAYAAACesWDiAAAACXBIWXMAAAsSAAALEgHS3X78AAADRUlEQVR4nO2cPWsUURSG300sUojZNGKhZFNZ2MRObVwLIaUQSKtYWCv+gMUfIGKrIpgyIFErPwqTxmAhq4WFIMSghYWwxmoFQXkv946z83Vmdne+MueBYYpdZu95OPfcO3dmbwsyywAuAVgE0Enx/TrwBcAegCcA3o/b3isAdgH8PeDHro01NcyYfgPEBI++jV3MmkED5bhjkJRN3QaLCR5dJ8UV6bbti+1aldr8+AlgiecZ+xN3VM4IbevEZFDHZo8SZmkWQA/AGZUTzYy/ICkhui1bvZWEDFKELqaooPFRQQIqSEAFCaggARUkoIIEVJCAChJQQQIqSEAFCaggARUkoIIEVJCAChJQQQIqSEAFCagggUP8+DEu46x5gUxx7GAPq3ikGSShggSMoK/mdRjFj3OigmJQQQIjgr5hv7otLQnnxAh6Y96rVvw4J94otmNePFeCLjxBmkX/8bvwBD3Hp1IbVSX8LjxBH/FdRzM7etGFY2QmrVkUdjAi6AHeFt2eyhF0MCKI6dXkLGLswTITulltchZFxR4SxCGuiXMixhw11Ylc7riOp0W0qVLExRwpiP3wfoO6GmONm+LELpjdxnYj5kWMkbHGESvoF4a4io0Cm1oOjJGxxpG45MoZZQ8vDqobE5t/1hyFuCbN/rmBDzk2sxwYU5o6m/rvUK9wDadwrJYygjBrLuJequ+mfqqxinUxHesAY2AsaUktiIWs7pKcnKSiHCTTczEnqY41iW3OKgdZalCQmzhvjjrAeU7SXCcXQeQcOniINRzBXCU1cRJ4A88mWk6etf96HmvbGzZgHe9wFIcrN8KxS3ES+Bk/JrnMFgUtAFgZ9wq/8ceso/Bu+ATa5igTtoNZwzkO2zYhd1t2G4bBtGJit2NtKvp1GophnZny05kFZtDQ1qKpbDDAbsf0dmtKeXc9/lYPL/O4ub7FRUb/7i/9PLbgYgFfwUmTWTxPWtA5TLNLM1N4zjpsp4RpeJq7v/j3MOPuS6/z3gWGNYrdj2dm1zzmcBzzodrFbODz8X0MvUdSzMoClmD4Axfi9jZb1h2o5G262jaTmiYnc+9h0d5sgJjNpAEqzT6KtMoLiKlXM1hjtmzNiQbAP8Qkjs+V/e+TAAAAAElFTkSuQmCC" />
+                </defs>
+            </svg>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <h3 class="login-header">Bejelentkezés</h3>
+            </div>
+        </div>
+        <div class="row" id="alertArea"></div>
+        <div class="row justify-content-center my-3">
+            <input class="" type="text" name="username" placeholder="Felhasználónév" required>
+        </div>
+        <div class="row justify-content-center my-3">
+            <input class="" type="password" name="password" placeholder="Jelszó" required>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <button type="submit" id="loginButton" class="btn btn-pink float-right">
+                Bejelentkezés
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $('#loginForm').submit(e => {
+        e.preventDefault();
+        $('#loginButton').prop('disabled', true);
+        doLogin($('[name="username"]').val(), $('[name="password"]').val()).then(() => {
+            loadPage('loginsuccess.html');
+        }).catch(errorMsg => {
+            $('#alertArea').prepend(`<div class="alert alert-danger col-10 mx-auto" role="alert">
+                ${errorMsg ?? 'Hiba történt a feldolgozás során!'}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Bezár">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`);
+        }).finally(() => {
+            $('#loginButton').prop('disabled', false);
+        });
+    });
+</script>
